@@ -13,6 +13,7 @@ locals {
     network     = local.nets[i] == "mgmt" ? google_compute_network.mgmt-vpc.self_link : local.nets[i] == "wan" ? google_compute_network.wan-vpc.self_link : google_compute_network.lan-vpc.self_link 
     subnetwork  = local.nets[i] == "mgmt" ? google_compute_subnetwork.mgmt-subnet.self_link : local.nets[i] == "wan" ? google_compute_subnetwork.wan-subnet.self_link : google_compute_subnetwork.lan-subnet.self_link 
     external_ip = length(var.external_ips) > i ? element(var.external_ips, i) : "NONE"
+    index = i
     }
   ]
   // Region -> remove the letter following the last '-' from the zone string
@@ -60,7 +61,7 @@ resource "google_compute_instance" "instance" {
       dynamic "access_config" {
         for_each = network_interface.value.external_ip == "NONE" ? [] : [1]
         content {
-          nat_ip = network_interface.value.external_ip == "EPHEMERAL" ? null : network_interface.value.external_ip == "mgmt-public-ip" ? google_compute_address.mgmt-public-ip.address : network_interface.value.external_ip == "wan-public-ip" ? google_compute_address.wan-public-ip.address : google_compute_address.user-defined[network_interface.value.external_ip].address
+          nat_ip = network_interface.value.external_ip == "EPHEMERAL" ? null : network_interface.value.index == 0 ? google_compute_address.mgmt-public-ip.address : network_interface.value.index == 1 ? google_compute_address.wan-public-ip.address : null
         }
       }
     }
@@ -111,25 +112,17 @@ resource "google_compute_firewall" tcp_443 {
 
 
 resource "google_compute_address" mgmt-public-ip {
-  name = "${var.goog_cm_deployment_name}-mgmt-ip"
+  name = length(local.pub_ips)>0 && local.pub_ips[0] != "mgmt-public-ip" ? local.pub_ips[0] : "${var.goog_cm_deployment_name}-mgmt-ip"
   region = local.region
   address_type = "EXTERNAL"
 }
 
 resource "google_compute_address" wan-public-ip {
-  name = "${var.goog_cm_deployment_name}-wan-ip"
+  name = length(local.pub_ips)>1 && local.pub_ips[1] != "wan-public-ip" ? local.pub_ips[1] : "${var.goog_cm_deployment_name}-wan-ip"
   region = local.region
   address_type = "EXTERNAL"
 }
 
-
-resource "google_compute_address" "user-defined" {
-  for_each = toset(local.pub_ips)
-  name = each.key
-  region = local.region
-  address_type = "EXTERNAL"
-  
-}
 
 resource "google_compute_network" mgmt-vpc {
   name  = var.mgmt_net == "" ? "${var.goog_cm_deployment_name}-mgmt-vpc" : "${var.mgmt_net}"

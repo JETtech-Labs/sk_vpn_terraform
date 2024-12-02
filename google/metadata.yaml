@@ -109,4 +109,6 @@ spec:
       - name: admin_url
         description: Admin Url
       - name: ssh_key
-        description: SSH Private Key       
+        description: SSH Private Key
+      - name: ssh_pub_key
+        description: SSH Public Key               
