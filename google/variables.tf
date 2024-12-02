@@ -18,7 +18,7 @@ variable "goog_cm_deployment_name" {
 variable "source_image" {
   description = "The image name for the disk for the VM instance."
   type        = string
-  default     = "projects/jet-technology-labs-public/global/images/sk-vpn-prod-v1-3-1725480158"
+  default     = "projects/jet-technology-labs-public/global/images/sk-vpn-prod-v2-0-1733166178"
 }
 
 variable "zone" {

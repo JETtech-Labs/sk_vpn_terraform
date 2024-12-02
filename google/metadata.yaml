@@ -8,7 +8,7 @@ metadata:
 spec:
   info:
     title: Google Cloud Marketplace Terraform Module
-    version: v1.3.1725480158
+    version: v2.0.1733166178
     actuationTool:
       flavor: Terraform
       version: ">= 1.2"
@@ -17,7 +17,7 @@ spec:
       - type: SG_OS
         software:
           - title: jetOS
-            version: "v1.3"
+            version: "v2.0"
   content: {}
   interfaces:
     variables:
@@ -36,7 +36,7 @@ spec:
       - name: source_image
         description: The image name for the disk for the VM instance.
         varType: string
-        defaultValue: projects/jet-technology-labs-public/global/images/sk-vpn-prod-v1-3-1725480158
+        defaultValue: projects/jet-technology-labs-public/global/images/sk-vpn-prod-v2-0-1733166178
       - name: zone
         description: The zone for the solution to be deployed.
         varType: string

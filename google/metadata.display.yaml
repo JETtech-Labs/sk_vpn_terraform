@@ -20,8 +20,8 @@ spec:
           name: source_image
           title: Image version
           enumValueLabels:
-            - label: sk-vpn-prod-v1-3-1725480158
-              value: projects/jet-technology-labs-public/global/images/sk-vpn-prod-v1-3-1725480158
+            - label: sk-vpn-prod-v2-0-1733166178
+              value: projects/jet-technology-labs-public/global/images/sk-vpn-prod-v2-0-1733166178
           xGoogleProperty:
             type: ET_GCE_DISK_IMAGE
         machine_type:
