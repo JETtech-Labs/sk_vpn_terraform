@@ -36,7 +36,7 @@ spec:
       - name: source_image
         description: The image name for the disk for the VM instance.
         varType: string
-        defaultValue: projects/jet-technology-labs-public/global/images/sk-vpn-prod-v2-3-1736356923
+        defaultValue: projects/jet-technology-labs-public/global/images/sk-vpn-prod-v2-4-1747769758
       - name: zone
         description: The zone for the solution to be deployed.
         varType: string

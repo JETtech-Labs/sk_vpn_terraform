@@ -18,7 +18,7 @@ variable "goog_cm_deployment_name" {
 variable "source_image" {
   description = "The image name for the disk for the VM instance."
   type        = string
-  default     = "projects/jet-technology-labs-public/global/images/sk-vpn-prod-v2-3-1736356923"
+  default     = "projects/jet-technology-labs-public/global/images/sk-vpn-prod-v2-4-1747769758"
 }
 
 variable "zone" {
@@ -27,10 +27,22 @@ variable "zone" {
   default     = "us-west1-b"
 }
 
+variable "enable_confidential_vm" {
+  description = "Enable Confidential VM on the instance"
+  type        = bool
+  default     = false
+}
+
 variable "machine_type" {
   description = "The machine type to create, e.g. c2-standard-8"
   type        = string
   default     = "c2-standard-8"
+}
+
+variable "confidential_machine_type" {
+  description = "The machine type to create if enable_confidential_vm is true, e.g. n2d-standard-8"
+  type        = string
+  default     = "n2d-standard-8"
 }
 
 variable "boot_disk_type" {

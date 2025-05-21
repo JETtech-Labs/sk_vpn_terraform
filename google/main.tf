@@ -27,11 +27,13 @@ locals {
     google-monitoring-enable = "0"
     sshKeys ="sk_admin:${local.ssh_pub_key_content}"
   }
+
+  machine_type = var.enable_confidential_vm ? var.confidential_machine_type : var.machine_type
 }
 
 resource "google_compute_instance" "instance" {
   name = "${var.goog_cm_deployment_name}"
-  machine_type = var.machine_type
+  machine_type = local.machine_type
   zone = var.zone
 
   tags = ["${var.goog_cm_deployment_name}-deployment"]
@@ -44,6 +46,9 @@ resource "google_compute_instance" "instance" {
       type = var.boot_disk_type
       image = var.source_image
     }
+  }
+  confidential_instance_config {
+    enable_confidential_compute = var.enable_confidential_vm
   }
 
   can_ip_forward = var.ip_forward
