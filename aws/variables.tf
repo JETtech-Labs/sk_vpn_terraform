@@ -44,7 +44,7 @@ variable "vpc_cidr" {
 variable "product_id" {
   description = "The product ID for the deployment."
   type        = string
-  default     = "/aws/service/marketplace/prod-7anczd5r647ng/v2.2"
+  default     = "/aws/service/marketplace/prod-7anczd5r647ng/v3.0.1767126923"
 }
 
 variable "instance_type" {
